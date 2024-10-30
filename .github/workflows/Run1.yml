@@ -1,7 +1,6 @@
 name: Example workflow for Python using Snyk
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   security:
