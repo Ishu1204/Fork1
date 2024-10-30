@@ -29,3 +29,6 @@ jobs:
                   }
         env: 
           SLACK_WEBHOOK_URL: ${{ secrets.slack_webhook_url }}
+      - name: Convert SARIF to CSV
+        run: |
+          python sarif_to_csv.py
