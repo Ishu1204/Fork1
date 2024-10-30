@@ -28,15 +28,3 @@ def sarif_to_csv(sarif_file, csv_file):
                 })
 
 sarif_to_csv('snyk.sarif', 'snyk_output.csv')
-EOF
-
-      - name: Send notification to Slack
-        uses: slackapi/slack-github-action@v1.24.0
-        if: always()
-        with:
-          payload: |
-            {
-              "text": "*The Snyk scan result for repo is : ${{ job.status }}* \n*Number of Vulnerabilities : ${{ env.Results_Length }}* \n*Detail*: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
