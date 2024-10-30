@@ -42,6 +42,12 @@ jobs:
       - name: Run Python script to convert SARIF to CSV
         run: python code1.py
 
+      - name: Upload CSV file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: snyk-output-csv
+          path: snyk_output.csv
+          
       - name: Send notification to Slack
         uses: slackapi/slack-github-action@v1.24.0
         if: always()
