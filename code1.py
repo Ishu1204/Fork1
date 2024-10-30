@@ -27,4 +27,5 @@ def sarif_to_csv(sarif_file, csv_file):
                     'endColumn': region.get('endColumn', '')
                 })
 
-sarif_to_csv('snyk.sarif', 'snyk_output.csv')
+if __name__ == "__main__":
+    sarif_to_csv('snyk.sarif', 'snyk_output.csv')
