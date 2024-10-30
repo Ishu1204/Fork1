@@ -1,10 +1,27 @@
-name: workflow for Python using Snyk
-on: workflow_dispatch
+name: Example workflow for Python using Snyk
+
+on: 
+  push:
+  workflow_dispatch:
+
 jobs:
   security:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests prettytable jq
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python@master
         continue-on-error: true
@@ -13,22 +30,25 @@ jobs:
         with:
           command: code test
           args: --sarif-file-output=snyk.sarif
-      - name: print the snyk sarif file 
+
+      - name: Print the Snyk SARIF file
         run: cat snyk.sarif
+
       - name: Total No. of Security Issues
         run: |
-             length=$(cat snyk.sarif | jq '.runs[0].results | length')
-             echo "Results_Length=$length" >> $GITHUB_ENV
-      - name: Send notification to Slack 
+          length=$(cat snyk.sarif | jq '.runs[0].results | length')
+          echo "Results_Length=$length" >> $GITHUB_ENV
+
+      - name: Run Python script to convert SARIF to CSV
+        run: python code1.py
+
+      - name: Send notification to Slack
         uses: slackapi/slack-github-action@v1.24.0
         if: always()
-        with:  
-            payload: |
-                  {
-                    "text": "*The Synk scan result for repo is : ${{ job.status }}* \n*Number of Vulnerabilities : ${{ env.Results_Length }}* \n*Detail*: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                  }
-        env: 
-          SLACK_WEBHOOK_URL: ${{ secrets.slack_webhook_url }}
-      - name: Convert SARIF to CSV
-        run: |
-          python sarif_to_csv.py
+        with:
+          payload: |
+            {
+              "text": "*The Snyk scan result for repo is : ${{ job.status }}* \n*Number of Vulnerabilities : ${{ env.Results_Length }}* \n*Detail*: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
