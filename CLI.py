@@ -18,10 +18,13 @@ def trigger_workflow(owner, repo, workflow_id, ref='main'):
     else:
         print(f"Failed to trigger workflow: {response.status_code}")
         print(response.json())
+        
 def main():
+    
     repo_owner = input("Enter the repository owner: ")
     repo_name = input("Enter the repository name: ")
     workflow_id = input("Enter the workflow ID or filename: ")
     trigger_workflow(repo_owner, repo_name, workflow_id)
+
 if __name__ == "__main__":
     main()
