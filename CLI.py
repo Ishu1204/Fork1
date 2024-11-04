@@ -12,7 +12,8 @@ def trigger_workflow(owner, repo, workflow_id, ref='main'):
     data = {        
             'ref': ref
            }
-    response = requests.post(url, json=data, headers=headers)    if response.status_code == 204:
+    response = requests.post(url, json=data, headers=headers)   
+    if response.status_code == 204:
         print("Workflow triggered successfully")
     else:
         print(f"Failed to trigger workflow: {response.status_code}")
