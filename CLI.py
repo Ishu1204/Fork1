@@ -5,9 +5,13 @@ def trigger_workflow(owner, repo, workflow_id, ref='main'):
     token = os.getenv('GITHUB_TOKEN')
     if not token:
         raise ValueError("GITHUB_TOKEN environment variable not set")
-    url = f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches"    headers = {        'Authorization': f'token {token}',
-        'Accept': 'application/vnd.github.v3+json'    }    data = {        'ref': ref
-    }
+    url = f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches"    
+    headers = {        'Authorization': f'token {token}',
+                       'Accept': 'application/vnd.github.v3+json' 
+              }   
+    data = {        
+            'ref': ref
+           }
     response = requests.post(url, json=data, headers=headers)    if response.status_code == 204:
         print("Workflow triggered successfully")
     else:
