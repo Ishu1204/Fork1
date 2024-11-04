@@ -19,12 +19,9 @@ def trigger_workflow(owner, repo, workflow_id, ref='main'):
         print(f"Failed to trigger workflow: {response.status_code}")
         print(response.json())
 def main():
-    parser = argparse.ArgumentParser(description='Trigger a GitHub Action')
-    parser.add_argument('owner', type=str, help='Owner of the repository')
-    parser.add_argument('repo', type=str, help='Name of the repository')
-    parser.add_argument('workflow_id', type=str, help='ID of the workflow')
-    parser.add_argument('--ref', type=str, default='main', help='The git reference (branch or tag) to use')
-    args = parser.parse_args()
-    trigger_workflow(args.owner, args.repo, args.workflow_id, args.ref)
+    repo_owner = input("Enter the repository owner: ")
+    repo_name = input("Enter the repository name: ")
+    workflow_id = input("Enter the workflow ID or filename: ")
+    trigger_workflow(repo_owner, repo_name, workflow_id)
 if __name__ == "__main__":
     main()
