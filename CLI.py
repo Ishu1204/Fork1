@@ -1,4 +1,6 @@
-import argparseimport requestsimport os
+import argparse
+import requests
+import os
 def trigger_workflow(owner, repo, workflow_id, ref='main'):
     token = os.getenv('GITHUB_TOKEN')
     if not token:
