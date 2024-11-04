@@ -21,8 +21,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests prettytable jq 
-          pip install requests
-          
+                  
       - name: Run Python script to convert to get CLI input
         run: python CLI.py
         
