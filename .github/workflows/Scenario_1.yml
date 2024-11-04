@@ -1,7 +1,6 @@
 name: workflow for Python using Snyk
 
 on: 
-  push:
   workflow_dispatch:
 
 jobs:
