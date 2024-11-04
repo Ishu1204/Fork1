@@ -23,7 +23,7 @@ jobs:
           pip install requests prettytable jq 
                   
       - name: Run Python script to convert to get CLI input
-        run: python CLI.py
+        run: python input_prompt_cli.py
         
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python@master
