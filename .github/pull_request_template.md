@@ -7,3 +7,8 @@ Include a link to the JIRA Ticket linked to this PR.
 
 ## Additional Info (Test steps / Steps to reproduce etc.)
 Details on how to test the feature
+
+### Please provide the following information:
+
+- **Organization Username:** [Enter organization username here]
+- **Repository Name:** [Enter repository name here]
