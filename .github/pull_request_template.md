@@ -7,3 +7,10 @@ Include a link to the JIRA Ticket linked to this PR.
 
 ## Additional Info (Test steps / Steps to reproduce etc.)
 Details on how to test the feature
+
+## User Input
+
+    Please provide the following information:
+
+    - **Enter the Org username :** [Ishu-1204]
+    - **Enter the Repository name :** [FireBolt_Public_Repo]
