@@ -19,7 +19,7 @@ jobs:
           echo "::set-output name=repo_name::$REPO_NAME"
                    
       - name: Trigger Another Workflow
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
