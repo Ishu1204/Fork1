@@ -12,5 +12,5 @@ Details on how to test the feature
 
     Please provide the following information:
 
-    - **Enter the Org username :** [Ishu-1204]
-    - **Enter the Repository name :** [FireBolt_Public_Repo]
+    - **Enter the Org username :** [Enter value here ]
+    - **Enter the Repository name :** [Enter value here]
