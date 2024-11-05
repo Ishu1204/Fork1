@@ -1,0 +1,52 @@
+name: Extract PR Inputs and Trigger Workflow
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  extract-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Organization Username and Repository Name
+        run: |
+          ORG_USERNAME=$(echo "${{ github.event.pull_request.body }}" | grep -oP '(?<=Organization Username: ).*')
+          REPO_NAME=$(echo "${{ github.event.pull_request.body }}" | grep -oP '(?<=Repository Name: ).*')
+          echo "::set-output name=org_username::$ORG_USERNAME"
+          echo "::set-output name=repo_name::$REPO_NAME"
+      - name: Trigger Another Workflow
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner; // Current repository owner
+            const repo = context.repo.repo; // Current repository name
+            const workflowId = 'Scenario_1.yml'; // Replace with the ID or filename of the workflow to trigger
+            const ref = 'main'; // Replace with the desired branch or tag
+
+            // Construct the API endpoint URL
+            const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowId}/dispatches`;
+
+            // Request body data (including extracted inputs)
+            const data = {
+              ref: ref,
+              inputs: {
+                org_username: '${{ steps.extract-inputs.outputs.org_username }}',
+                repo_name: '${{ steps.extract-inputs.outputs.repo_name }}'
+              }
+            };
+
+            // Make the API request
+            const response = await github.request('POST', url, {
+              headers: {
+                'Accept': 'application/vnd.github.v3+json'
+              },
+              data: data
+            });
+
+            if (response.status === 204) {
+              console.log('Workflow triggered successfully!');
+            } else {
+              console.error(`Failed to trigger workflow: ${response.status}`);
+              console.error(response.data);
+            }
