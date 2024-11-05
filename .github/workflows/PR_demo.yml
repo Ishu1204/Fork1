@@ -17,7 +17,7 @@ jobs:
           REPO_NAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Repository Name:\*\* \[\(.*\)\]/\1/p' || echo "")
           echo "::set-output name=org_username::$ORG_USERNAME"
           echo "::set-output name=repo_name::$REPO_NAME"
-                   
+
       - name: Trigger Another Workflow
         uses: actions/github-script@v7
         with:
@@ -40,13 +40,13 @@ jobs:
               }
             };
 
-            try {
-              const response = await github.request('POST', url, {
-                headers: {
-                  'Accept': 'application/vnd.github.v3+json'
-                },
-                data: data
-              });
+            // Make the API request
+            const response = await github.request('POST', url, {
+              headers: {
+                'Accept': 'application/vnd.github.v3+json'
+              },
+              data: data
+            });
                      
             if (response.status === 204) {
               console.log('Workflow triggered successfully!');
