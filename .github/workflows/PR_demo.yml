@@ -13,11 +13,11 @@ jobs:
         
       - name: Extract Organization Username and Repository Name
         run: |
-          ORG_USERNAME=$(echo "${{ github.event.pull_request.body }}" | grep -oP '(?<=Organization Username: ).*')
-          REPO_NAME=$(echo "${{ github.event.pull_request.body }}" | grep -oP '(?<=Repository Name: ).*')
+          ORG_USERNAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Organization Username:\*\* \[\(.*\)\]/\1/p' || echo "")
+          REPO_NAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Repository Name:\*\* \[\(.*\)\]/\1/p' || echo "")
           echo "::set-output name=org_username::$ORG_USERNAME"
           echo "::set-output name=repo_name::$REPO_NAME"
-          
+                   
       - name: Trigger Another Workflow
         uses: actions/github-script@v6
         with:
