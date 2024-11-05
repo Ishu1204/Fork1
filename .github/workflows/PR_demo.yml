@@ -13,8 +13,8 @@ jobs:
         
       - name: Extract Organization Username and Repository Name
         run: |
-          ORG_USERNAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Organization Username:\*\* \[\(.*\)\]/\1/p' || echo "")
-          REPO_NAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Repository Name:\*\* \[\(.*\)\]/\1/p' || echo "")
+          ORG_USERNAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Organization Username:\*\* \[\(.*\)\]/\1/p' | tr -d '[]' || echo "")
+          REPO_NAME=$(echo "${{ github.event.pull_request.body }}" | sed -n 's/- \*\*Repository Name:\*\* \[\(.*\)\]/\1/p' | tr -d '[]' || echo "")
           echo "::set-output name=org_username::$ORG_USERNAME"
           echo "::set-output name=repo_name::$REPO_NAME"
 
