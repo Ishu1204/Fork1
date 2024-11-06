@@ -6,9 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  target_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "Organization Username: ${{ github.event.client_payload.org_username }}"
+          echo "Repository Name: ${{ github.event.client_payload.repo_name }}"
+  
   security:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
