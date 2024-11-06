@@ -1,19 +1,24 @@
-name: workflow for Python using Snyk
+name: Main Workflow
 
-on: 
-  repository_dispatch:
-     types: [trigger-target-workflow]
+on:
   workflow_dispatch:
+    inputs:
+      organization:
+        description: 'Organization name'
+        required: true
+      repository:
+        description: 'Repository name'
+        required: true
 
 jobs:
-  target_job:
+  main-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Inputs
+      - name: Print inputs
         run: |
-          echo "Organization Username: ${{ github.event.client_payload.org_username }}"
-          echo "Repository Name: ${{ github.event.client_payload.repo_name }}"
-  
+          echo "Organization: ${{ github.event.inputs.organization }}"
+          echo "Repository: ${{ github.event.inputs.repository }}"
+
   security:
     runs-on: ubuntu-latest
     steps:
