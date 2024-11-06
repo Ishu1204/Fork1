@@ -1,14 +1,8 @@
 name: Main Workflow
 
 on:
-  workflow_dispatch:
-    inputs:
-      organization:
-        description: 'Organization name'
-        required: true
-      repository:
-        description: 'Repository name'
-        required: true
+  repository_dispatch:
+     types: [trigger-main-workflow]
 
 jobs:
   main-job:
@@ -16,8 +10,8 @@ jobs:
     steps:
       - name: Print inputs
         run: |
-          echo "Organization: ${{ github.event.inputs.organization }}"
-          echo "Repository: ${{ github.event.inputs.repository }}"
+          echo "Organization: ${{ github.event.client_payload.organization }}"
+          echo "Repository: ${{ github.event.client_payload.repository }}"
 
   security:
     runs-on: ubuntu-latest
