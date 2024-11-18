@@ -7,7 +7,7 @@
     "@firebolt-js/discovery-sdk": "1.4.1",
     "@firebolt-js/manage-sdk": "1.4.1",
     "@firebolt-js/sdk": "1.4.1",
-    "@lightningjs/core": "2.11.0",
+    "@lightningjs/core": "2.14.0",
     "@lightningjs/sdk": "^5.0.1",
     "@lightningjs/ui-components": "^2.2.2",
     "dotenv": "^14.2.0",
